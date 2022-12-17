@@ -3,7 +3,9 @@ def sum_list(lista):
   if len(lista) == 0:
     return None
   else:
-    for i in lista:
-      risultato = risultato + i
+    for item in lista:
+      risultato = risultato + item
     return risultato
+
+
   
