@@ -29,18 +29,13 @@ class NumericalCSVFile(CSVFile):
   def get_data(self):
     lista = super().get_data()
     for item in lista:
-      i = 0
-      for i in range(len(item)):
-          if(i != 0):
-            try:
-              item[i] = float(item[i])
-              print(item[i])
-            except (ValueError, TypeError):
-              if(item[i] == None):
-                raise ValueError('The item is empty')
-              else:
-                raise TypeError('The item cannot be converted into float')
-
+      for i in range(1,len(item)):
+          try:
+            item[i] = float(item[i])
+          except ValueError:
+            print('Errore')
+          except IndexError:
+            print('Errore')
     return lista
 
 
