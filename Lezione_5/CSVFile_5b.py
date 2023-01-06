@@ -32,9 +32,7 @@ class NumericalCSVFile(CSVFile):
       for i in range(1,len(item)):
           try:
             item[i] = float(item[i])
-          except ValueError:
-            print('Errore')
-          except IndexError:
+          except ValueError or IndexError:
             print('Errore')
     return lista
 
