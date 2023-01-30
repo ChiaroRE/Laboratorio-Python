@@ -20,15 +20,15 @@ class CSVTimeSeriesFile():
             elements = line.split(",")
             if(elements[0] != 'epoch'):
               try:
-                  elements[1] = float(elements[1].replace('\n',''))
+                  element1 = float(elements[1].replace('\n',''))
               except ValueError:
                 continue
               try:
-                elements[0] = int(elements[0])
+                element0 = int(elements[0])
               except ValueError:
                 continue
-              if elements[0] and elements[1]:
-                list.append(elements)
+              if element0 and element1:
+                list.append([element0,element1])
 
         return list
 
@@ -53,7 +53,7 @@ def compute_daily_max_difference(time_series):
   day_start_epoch = day_end_epoch + 1
   day_end_epoch = day_end_epoch + 86399
   
-  while(day_end_epoch < last_element[0]):
+  while(day_start_epoch < last_element[0]):
     day_temp = []
     for item in time_series:
       if item[0] < day_end_epoch and item[0] >= day_start_epoch:
@@ -74,4 +74,5 @@ time_series_file = CSVTimeSeriesFile('data.csv')
 time_series = time_series_file.get_data()
 
 diff = (compute_daily_max_difference(time_series))
-print(diff)
+print(len(diff))
+
