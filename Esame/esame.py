@@ -19,9 +19,15 @@ class CSVTimeSeriesFile():
         for line in my_file:
             elements = line.split(",")
             if(elements[0] != 'epoch'):
-                elements[1] = elements[1].replace('\n','')
+              try:
+                  elements[1] = float(elements[1].replace('\n',''))
+              except ValueError:
+                continue
+              try:
                 elements[0] = int(elements[0])
-                elements[1] = float(elements[1])
+              except ValueError:
+                continue
+              if elements[0] and elements[1]:
                 list.append(elements)
 
         return list
@@ -68,4 +74,4 @@ time_series_file = CSVTimeSeriesFile('data.csv')
 time_series = time_series_file.get_data()
 
 diff = (compute_daily_max_difference(time_series))
-print(len(diff))
+print(diff)
