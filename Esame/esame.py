@@ -8,8 +8,13 @@ class CSVTimeSeriesFile():
 
     def get_data(self):
         list = []
-        
-        my_file = open(self.name, 'r')
+
+        try:
+          my_file = open(self.name, 'r')
+        except FileNotFoundError:
+          raise ExamException("Il file {} non è stato trovato".format(self.name))
+        except:
+          raise ExamException("Il file {} non è leggibile".format(self.name))
 
         for line in my_file:
             elements = line.split(",")
