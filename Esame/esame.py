@@ -78,7 +78,7 @@ def compute_daily_max_difference(time_series):
   
   
 
-time_series_file = CSVTimeSeriesFile("vuoto.csv")
+time_series_file = CSVTimeSeriesFile("data.csv")
 time_series = time_series_file.get_data()
 
 diff = (compute_daily_max_difference(time_series))
