@@ -1,3 +1,5 @@
+import os
+
 class ExamException(Exception):
         pass
 
@@ -16,19 +18,24 @@ class CSVTimeSeriesFile():
         except:
           raise ExamException("Il file {} non è leggibile".format(self.name))
 
+        if os.stat(self.name).st_size == 0:
+            raise ExamException("Il file è vuoto")
+
         for line in my_file:
             elements = line.split(",")
-            if(elements[0] != 'epoch'):
-              try:
-                  element1 = float(elements[1].replace('\n',''))
-              except ValueError:
+            try:
+                element1 = float(elements[1].replace('\n',''))
+            except ValueError:
                 continue
-              try:
+            try:
                 element0 = int(elements[0])
-              except ValueError:
+            except ValueError:
                 continue
-              if element0 and element1:
+            if element0 and element1:
                 list.append([element0,element1])
+
+        if (len(list) == 0):
+            raise ExamException("La lista è vuota")
 
         for i in range(len(list) - 1):
             if list[i][0] >= list[i + 1][0]:
@@ -71,7 +78,7 @@ def compute_daily_max_difference(time_series):
   
   
 
-time_series_file = CSVTimeSeriesFile('data.csv')
+time_series_file = CSVTimeSeriesFile("vuoto.csv")
 time_series = time_series_file.get_data()
 
 diff = (compute_daily_max_difference(time_series))
