@@ -30,6 +30,19 @@ class CSVTimeSeriesFile():
               if element0 and element1:
                 list.append([element0,element1])
 
+        for i in range(len(list) - 1):
+            if list[i][0] >= list[i + 1][0]:
+                Flag_d = False
+                j = 0
+                while((Flag_d == False) and j != (len(list) - 1)):
+                    if list[i][0] == list[j][0] and i != j:
+                        Flag_d = True
+                    j += 1
+                if Flag_d == True:
+                    raise ExamException("La serie temporale presenta duplicati")
+                else:
+                    raise ExamException("La serie temporale non è ordinata")
+
         return list
 
 def compute_daily_max_difference(time_series):
@@ -46,7 +59,10 @@ def compute_daily_max_difference(time_series):
         if item[0] <= day_end_epoch:
             temp.append(item[1])
         if item[0] > day_end_epoch or item[0] == last_element[0]:
-            diff.append(max(temp) - min(temp))
+            var = max(temp) - min(temp)
+            if(len(temp) == 1):
+                var = None
+            diff.append(var)
             day_end_epoch = day_end_epoch + 86399
             temp = [item[1]]
             

@@ -28,7 +28,7 @@ class CSVTimeSeriesFile():
               except ValueError:
                 continue
               if element0 and element1:
-                list.append([element0,element1])
+                list.append([element0,element1]) 
 
         return list
 
