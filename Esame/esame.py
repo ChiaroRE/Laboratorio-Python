@@ -18,6 +18,10 @@ class CSVTimeSeriesFile():
         except Exception:
           raise ExamException("Il file {} non è leggibile".format(self.name))
 
+        if self.name.endswith(".csv"):
+            pass
+        else:
+            raise ExamException("Il file {} non è un file csv".format(self.name))
         if os.stat(self.name).st_size == 0:
             raise ExamException("Il file è vuoto")
 
@@ -76,8 +80,4 @@ def compute_daily_max_difference(time_series):
 
     return diff
   
-  
-
-
-
 
