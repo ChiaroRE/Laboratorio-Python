@@ -15,7 +15,7 @@ class CSVTimeSeriesFile():
           my_file = open(self.name, 'r')
         except FileNotFoundError:
           raise ExamException("Il file {} non è stato trovato".format(self.name))
-        except:
+        except Exception:
           raise ExamException("Il file {} non è leggibile".format(self.name))
 
         if os.stat(self.name).st_size == 0:
@@ -78,7 +78,7 @@ def compute_daily_max_difference(time_series):
   
   
 
-time_series_file = CSVTimeSeriesFile("data.csv")
+time_series_file = CSVTimeSeriesFile("vuoto.csv")
 time_series = time_series_file.get_data()
 
 diff = (compute_daily_max_difference(time_series))
