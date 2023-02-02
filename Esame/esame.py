@@ -7,7 +7,7 @@ class CSVTimeSeriesFile():
         self.name = name
 
     def get_data(self):
-        list = []
+        lista = []
 
         try:
           my_file = open(self.name, 'r')
@@ -16,33 +16,29 @@ class CSVTimeSeriesFile():
         except Exception:
           raise ExamException("Il file {} non è leggibile".format(self.name))
 
-        if self.name.endswith(".csv"):
-            pass
-        else:
+        if self.name.endswith(".csv") == False:
             raise ExamException("Il file {} non è un file csv".format(self.name))
+        else:
+            pass
 
         for line in my_file:
             elements = line.split(",")
             try:
                 element1 = float(elements[1].replace('\n',''))
-            except ValueError:
-                continue
-            try:
                 element0 = int(elements[0])
-            except ValueError:
+                lista.append([element0,element1])
+            except ValueError or TypeError:
                 continue
-            if element0 and element1:
-                list.append([element0,element1])
 
-        if (len(list) == 0):
+        if (len(lista) == 0):
             raise ExamException("La lista è vuota")
 
-        for i in range(len(list) - 1):
-            if list[i][0] >= list[i + 1][0]:
+        for i in range(len(lista) - 1):
+            if lista[i][0] >= lista[i + 1][0]:
                 Flag_d = False
                 j = 0
-                while((Flag_d == False) and j != (len(list) - 1)):
-                    if list[i][0] == list[j][0] and i != j:
+                while((Flag_d == False) and j != (len(lista) - 1)):
+                    if lista[i][0] == lista[j][0] and i != j:
                         Flag_d = True
                     j += 1
                 if Flag_d == True:
@@ -50,7 +46,7 @@ class CSVTimeSeriesFile():
                 else:
                     raise ExamException("La serie temporale non è ordinata")
 
-        return list
+        return lista
 
 def compute_daily_max_difference(time_series):
     first_element = time_series[0]
@@ -75,4 +71,3 @@ def compute_daily_max_difference(time_series):
             
 
     return diff
-  
