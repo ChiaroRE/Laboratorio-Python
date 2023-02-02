@@ -23,11 +23,12 @@ class CSVTimeSeriesFile():
 
         for line in my_file:
             elements = line.split(",")
+            
             try:
                 element1 = float(elements[1].replace('\n',''))
                 element0 = int(elements[0])
                 lista.append([element0,element1])
-            except ValueError or TypeError:
+            except (ValueError,IndexError,TypeError):
                 continue
 
         if (len(lista) == 0):
@@ -71,3 +72,4 @@ def compute_daily_max_difference(time_series):
             
 
     return diff
+  
