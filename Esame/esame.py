@@ -1,5 +1,3 @@
-import os
-
 class ExamException(Exception):
         pass
 
@@ -22,8 +20,6 @@ class CSVTimeSeriesFile():
             pass
         else:
             raise ExamException("Il file {} non è un file csv".format(self.name))
-        if os.stat(self.name).st_size == 0:
-            raise ExamException("Il file è vuoto")
 
         for line in my_file:
             elements = line.split(",")
@@ -80,4 +76,5 @@ def compute_daily_max_difference(time_series):
 
     return diff
   
-
+my_file = CSVTimeSeriesFile("vuoto(Not_official).csv")
+time_series = my_file.get_data()
