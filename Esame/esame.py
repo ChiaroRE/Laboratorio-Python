@@ -76,5 +76,3 @@ def compute_daily_max_difference(time_series):
 
     return diff
   
-my_file = CSVTimeSeriesFile("vuoto(Not_official).csv")
-time_series = my_file.get_data()
